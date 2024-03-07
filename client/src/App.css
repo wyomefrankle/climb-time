@@ -5,38 +5,100 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h3 {
+  flex: 1;
+  color: red;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Container for the entire application */
+.App {
+  max-width: 1280px; /* Limiting the maximum width of the container */
+  margin: 20px auto; /* Centering the container horizontally with some top margin */
+  padding: 20px; /* Adding padding around the container */
+  background-color: #f9f9f9; /* Light gray background color */
+  border-radius: 8px; /* Adding border radius for rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle box shadow */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Styling for the title */
+.title {
+  text-align: center; /* Center-aligning the text */
+  font-size: 36px; /* Setting font size */
+  margin-bottom: 20px; /* Adding space below the title */
+  color: #007aff; /* blue color */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
 }
 
-.card {
-  padding: 2em;
+/* Styling for the sub-heading */
+.subheading {
+  text-align: center; /* Center-aligning the text */
+  font-size: 26px; /* Setting font size */
+  margin-bottom: 20px; /* Adding space below the title */
+  color: #555; /* Dark gray color */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
 }
 
-.read-the-docs {
-  color: #888;
+/* Styling for the form */
+.form {
+  display: flex; /* Displaying the form items in a row */
+  align-items: center; /* Aligning form items vertically */
+  margin-bottom: 20px; /* Adding space below the form */
 }
+
+/* Styling for the input field */
+.input {
+  flex: 1; /* Allowing the input field to grow to fill available space */
+  padding: 8px; /* Adding padding inside the input field */
+  border: 1px solid #ccc; /* Adding a border around the input field */
+  border-radius: 4px; /* Adding border radius for rounded corners */
+  margin-right: 4px; /* Adding space to the right of the input field */
+  margin-left: 4px; /* Adding space to the left of the input field */
+}
+
+/* Styling for the label */
+.label {
+  padding: 8px; /* Adding padding between labels */
+  color: #007aff; /* blue color */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
+}
+
+/* Styling for the submit button */
+.submit-button {
+  padding: 8px 10px; /* Adding padding inside the button */
+  background-color: #007aff; /* Setting background color */
+  color: #fff; /* Setting text color */
+  border: none; /* Removing border */
+  border-radius: 4px; /* Adding border radius for rounded corners */
+  cursor: pointer; /* Changing cursor to pointer on hover */
+}
+
+/* Styling for the climbs list */
+.climbs-list {
+  border: 1px solid #ccc; /*Adding border around the climbs list*/
+  border-radius: 4px; /* Adding border radius for rounded corners */
+}
+
+/* Styling for each individual climb */
+.climb {
+  /* display: flex; Displaying climb in a row */
+  align-items: center; /* Aligning climb items vertically */
+  padding: 10px; /* Adding padding inside each climb */
+  color:#555;
+}
+
+/* Styling for the checkbox */
+.li {
+  margin-right: 10px; /* Adding space to the right of the checkbox */
+}
+
+/* Styling for the delete button */
+.delete-button {
+  padding: 4px 10px; /* Adding padding inside the button */
+  background-color: #dc3545; /* Setting background color */
+  color: #fff; /* Setting text color */
+  border: none; /* Removing border */
+  border-radius: 4px; /* Adding border radius for rounded corners */
+  cursor: pointer; /* Changing cursor to pointer on hover */
+  margin-left: 10px; /* Pushing the button to the right end of the climb name */
+}
+

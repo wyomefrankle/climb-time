@@ -13,7 +13,6 @@ router.get("/", function(req, res, next) {
 
 // GET one climb
 router.get("/:id", function(req, res, next) {
-  //your code here
   db(`SELECT * FROM climbs where id = ${req.params.id} ORDER BY id ASC;`)
     .then(results => {
       res.send(results.data);
@@ -40,5 +39,22 @@ router.post("/", function(req, res, next) {
     .catch(err => res.status(500).send(err));
 });
 
+// DELETE a climb from the DB
+router.delete("/:id", function(req, res, next) {
+  db(`SELECT * FROM climbs where id = ${req.params.id};`)
+    .then(climb => {
+      if (!climb.data.length) {
+        res.status(404).send({ message: "Climb not found" });
+        return;
+      }
+
+      return db(`DELETE FROM climbs WHERE id = ${req.params.id};`);
+    })
+    .then(() => db("SELECT * FROM climbs ORDER BY id ASC;"))
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err)); //send 500 error message if there is an error
+});
 
 module.exports = router;
