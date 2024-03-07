@@ -3,16 +3,26 @@
 --
 
 SET foreign_key_checks = 0;
-DROP TABLE if exists students;
+DROP TABLE if exists climbs;
 SET foreign_key_checks = 1;
 
 --
 -- Create Tables
 --
 
-CREATE TABLE students(
+CREATE TABLE climbs(
     id INT NOT NULL AUTO_INCREMENT, 
-    firstname VARCHAR(40) not null, 
-    lastname VARCHAR(40) not null, 
+    -- grade of the climb
+    grade VARCHAR(40) NOT null, 
+    -- where was the climb
+    location VARCHAR(40) NOT null,
+    -- my own feeling of the grade 
+    feels_like VARCHAR(40),
+    -- additional comments I want to add to the climb
+    comment TEXT,
+    -- project/flash
+    status TINYINT NOT null, 
+    -- name of the gym
+    name VARCHAR(40) NOT null,
     PRIMARY KEY (id)
-    );
+);
