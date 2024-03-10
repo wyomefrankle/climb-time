@@ -12,6 +12,8 @@ SET foreign_key_checks = 1;
 
 CREATE TABLE climbs(
     id INT NOT NULL AUTO_INCREMENT, 
+    -- date of log
+    date DATE NOT null,
     -- grade of the climb
     grade VARCHAR(40) NOT null, 
     -- where was the climb
@@ -21,8 +23,8 @@ CREATE TABLE climbs(
     -- additional comments I want to add to the climb
     comment TEXT,
     -- project/flash
-    status TINYINT NOT null, 
-    -- name of the gym
-    name VARCHAR(40) NOT null,
+    style TEXT NOT null, 
+    -- tries
+    tries INT,
     PRIMARY KEY (id)
 );

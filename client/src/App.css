@@ -1,104 +1,97 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-h3 {
-  flex: 1;
-  color: red;
+/* General styling */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
 /* Container for the entire application */
 .App {
-  max-width: 1280px; /* Limiting the maximum width of the container */
-  margin: 20px auto; /* Centering the container horizontally with some top margin */
-  padding: 20px; /* Adding padding around the container */
-  background-color: #f9f9f9; /* Light gray background color */
-  border-radius: 8px; /* Adding border radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle box shadow */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Styling for the title */
 .title {
-  text-align: center; /* Center-aligning the text */
-  font-size: 36px; /* Setting font size */
-  margin-bottom: 20px; /* Adding space below the title */
-  color: #007aff; /* blue color */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #007aff;
 }
 
 /* Styling for the sub-heading */
 .subheading {
-  text-align: center; /* Center-aligning the text */
-  font-size: 26px; /* Setting font size */
-  margin-bottom: 20px; /* Adding space below the title */
-  color: #555; /* Dark gray color */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #555;
 }
 
 /* Styling for the form */
 .form {
-  display: flex; /* Displaying the form items in a row */
-  align-items: center; /* Aligning form items vertically */
-  margin-bottom: 20px; /* Adding space below the form */
+  margin-bottom: 20px;
 }
 
 /* Styling for the input field */
 .input {
-  flex: 1; /* Allowing the input field to grow to fill available space */
-  padding: 8px; /* Adding padding inside the input field */
-  border: 1px solid #ccc; /* Adding a border around the input field */
-  border-radius: 4px; /* Adding border radius for rounded corners */
-  margin-right: 4px; /* Adding space to the right of the input field */
-  margin-left: 4px; /* Adding space to the left of the input field */
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+  background-color: #fff;
 }
 
 /* Styling for the label */
 .label {
-  padding: 8px; /* Adding padding between labels */
-  color: #007aff; /* blue color */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Setting font family */
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #007aff;
 }
 
 /* Styling for the submit button */
 .submit-button {
-  padding: 8px 10px; /* Adding padding inside the button */
-  background-color: #007aff; /* Setting background color */
-  color: #fff; /* Setting text color */
-  border: none; /* Removing border */
-  border-radius: 4px; /* Adding border radius for rounded corners */
-  cursor: pointer; /* Changing cursor to pointer on hover */
+  padding: 12px 20px;
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
 }
 
 /* Styling for the climbs list */
 .climbs-list {
-  border: 1px solid #ccc; /*Adding border around the climbs list*/
-  border-radius: 4px; /* Adding border radius for rounded corners */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
 }
 
 /* Styling for each individual climb */
 .climb {
-  /* display: flex; Displaying climb in a row */
-  align-items: center; /* Aligning climb items vertically */
-  padding: 10px; /* Adding padding inside each climb */
-  color:#555;
-}
-
-/* Styling for the checkbox */
-.li {
-  margin-right: 10px; /* Adding space to the right of the checkbox */
+  margin-bottom: 12px;
 }
 
 /* Styling for the delete button */
 .delete-button {
-  padding: 4px 10px; /* Adding padding inside the button */
-  background-color: #dc3545; /* Setting background color */
-  color: #fff; /* Setting text color */
-  border: none; /* Removing border */
-  border-radius: 4px; /* Adding border radius for rounded corners */
-  cursor: pointer; /* Changing cursor to pointer on hover */
-  margin-left: 10px; /* Pushing the button to the right end of the climb name */
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.delete-button:hover {
+  background-color: #b21e35;
+}

@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CLIMB_INITIAL_STATE = {
-  grade: " ",
-  location:" ",
-  feels_like: " ",
+  date: new Date(),
+  grade: "3",
+  location:"",
+  feels_like: "3",
   comment:"",
-  status:0,
-  name:""
+  style:"",
+  tries:""
 };
+
+const gradeOptions = [
+  "3",
+  "4",
+  "5A/B",
+  "5B/C",
+  "5C/6A",
+  "6A/B",
+  "6B/7A",
+  "7A >",
+  "Comp"
+];
 
 function App() {  
   const [climbs, setClimbs] = useState([]);
   const [newClimb, setNewClimb] = useState(CLIMB_INITIAL_STATE);
-  // let [lastName, setLastName] = useState("");
+  const styleOptions = ["Flash", "Redpoint", "Go"];
 
   useEffect(() => {
     getClimbs();
@@ -35,18 +50,52 @@ function App() {
     setNewClimb((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleDateChange = (date) => {
+    setNewClimb((prevState) => ({ ...prevState, date: date.toISOString().split('T')[0] }));
+  };
+
+  const handleGradeChange = (event) => {
+    const { value } = event.target;
+    setNewClimb((prevState) => ({ ...prevState, grade: value }));
+  };
+  const handleFeelsLikeChange = (event) => {
+    const { value } = event.target;
+    setNewClimb((prevState) => ({ ...prevState, feels_like: value }));
+  };
+
+  const handleStyleChange = (event) => {
+    const { value } = event.target;
+    setNewClimb((prevState) => ({ ...prevState, style: value }));
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
     addClimbs();
   };
 
   const addClimbs = () => {
+      // Check if required fields are filled in
+    if (!newClimb.grade || !newClimb.location || !newClimb.style) {
+      console.error("Please fill in all required fields.");
+      return;
+    }
+
+    // Convert 'tries' to an integer
+    const triesInt = parseInt(newClimb.tries);
+
+    // Convert date to ISO 8601 format
+    const newDate = new Date(newClimb.date).toISOString().split('T')[0];
+
+    // Update newClimb with the integer value of tries and converted date
+    setNewClimb(prevState => ({ ...prevState, tries: triesInt, date: newDate }));
+    
+    console.log("New Climb Data:", newClimb); // Log the new climb data before sending the request
     fetch("/api/climbs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({newClimb})
+      body: JSON.stringify(newClimb)
     })
       .then(result => {
         if (!result.ok) {
@@ -55,11 +104,12 @@ function App() {
         return result.json();
       })
       .then(json => {
+        console.log("Response Data:", json); // Log the response data after receiving the response
         setClimbs(json);
-        setNewClimb("");
+        setNewClimb(CLIMB_INITIAL_STATE);
       })
       .catch(error => {
-        console.log(error);
+        console.error("Error adding climb:", error.message);
       });
   };
 
@@ -86,15 +136,20 @@ function App() {
       <h1 className="title">My Climbing Log</h1>
       <h3 className="subheading"> Add new Climb: </h3>
       <form onSubmit={e => handleSubmit(e)} className="form">
-        {<label className="label">
+      <label className="label">
           Grade:
-          <input
-            onChange={e => handleInputChange(e)}
+          <select
             value={newClimb.grade}
-            name="grade"
+            onChange={handleGradeChange}
             className="input"
-          />
-        </label>}
+          >
+            {gradeOptions.map((grade, index) => (
+              <option key={index} value={grade}>
+                {grade}
+              </option>
+            ))}
+          </select>
+        </label>
         {<label className="label">
           Location:
           <input
@@ -106,20 +161,24 @@ function App() {
         </label>}
         {<label className="label">
           What grade it felt like:
-          <input
-            onChange={e => handleInputChange(e)}
+          <select
             value={newClimb.feels_like}
-            name="feels_like"
+            onChange={handleFeelsLikeChange}
             className="input"
-          />
+          >
+            {gradeOptions.map((feels_like, index) => (
+              <option key={index} value={feels_like}>
+                {feels_like}
+              </option>
+            ))}
+          </select>
         </label>}
         {<label className="label">
-          Gym name:
-          <input
-            onChange={e => handleInputChange(e)}
-            value={newClimb.name}
-            name="name"
-            className="input"
+          Date:
+          <DatePicker
+            selected={new Date(newClimb.date)} // Pass the selected date
+            onChange={date => handleDateChange(date)} // Handle date change
+            className="input" // Apply your existing input styling
           />
         </label>}
         {<label className="label">
@@ -131,6 +190,30 @@ function App() {
             className="input"
           />
         </label>}
+        <div className="label">
+          Style:
+          {styleOptions.map((style, index) => (
+            <label key={index} className="radio-label">
+              <input
+                type="radio"
+                value={style}
+                checked={newClimb.style === style}
+                onChange={handleStyleChange}
+              />
+              {style}
+            </label>
+          ))}
+        </div>
+        {<label className="label">
+          Tries:
+          <input
+            type="number"
+            onChange={e => handleInputChange(e)}
+            value={newClimb.tries}
+            name="tries"
+            className="input"
+          />
+        </label>}
         {<button type="submit" className="submit-button">
           Submit
         </button>}
@@ -138,8 +221,8 @@ function App() {
       <div className="climbs-list">
         {climbs.map(climb => (
           <div key={climb.id} className="climb">
-            <li>Gym: {climb.name}</li>
-            <li>How the grade really felt: {climb.feels_like}</li>
+            <li>Location: {climb.location}</li>
+            <li>Date: {new Date(climb.date).toLocaleDateString()}</li>
             <li>
               Grade: {climb.grade}
               {/* <button
@@ -152,8 +235,8 @@ function App() {
             </li>
             <li>What grade it felt like: {climb.feels_like}</li>
             <li>Additional notes: {climb.comment}</li>
-            <li>Location: {climb.location}</li>
-            <li>Status: {climb.status}</li>
+            <li>Style: {climb.style}</li>
+            <li>Tries: {climb.tries}</li>
           </div>
         ))}
       </div>
