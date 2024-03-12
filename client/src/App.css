@@ -7,13 +7,15 @@ body {
 
 /* Container for the entire application */
 .App {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: auto; /* Keep the maximum width */
+  margin: 0 auto; /* Center the element horizontally */
+  width: 100%; /* Change this to a percentage value to take up the majority of the page */
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 /* Styling for the title */
 .title {
@@ -50,13 +52,13 @@ body {
   display: block;
   font-size: 18px;
   margin-bottom: 8px;
-  color: #007aff;
+  color: #2d2e2f;
 }
 
 /* Styling for the submit button */
 .submit-button {
   padding: 12px 20px;
-  background-color: #007aff;
+  background-color: #0653fa;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -66,19 +68,26 @@ body {
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #03376d;
 }
 
 /* Styling for the climbs list */
-.climbs-list {
+/* .climbs-list {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 20px;
+} */
+
+.climb-container {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-/* Styling for each individual climb */
+
 .climb {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 /* Styling for the delete button */
