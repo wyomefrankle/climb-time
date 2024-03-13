@@ -54,7 +54,7 @@ router.post("/users", function(req, res, next) {
 
 /* GET climbs listing. */
 router.get("/:user_id", function(req, res, next) {
-  db(`SELECT * FROM climbs WHERE user_id = ${req.params.user_id};`)
+  db(`SELECT * FROM climbs WHERE user_id = "${req.params.user_id}";`)
     .then(results => {
       res.send(results.data);
     })
@@ -63,7 +63,7 @@ router.get("/:user_id", function(req, res, next) {
 
 // GET one climb
 router.get("/:user_id/:id", function(req, res, next) {
-  db(`SELECT * FROM climbs where (id,user_id) = (${req.params.id}, ${req.params.user_id}) ORDER BY id ASC;`)
+  db(`SELECT * FROM climbs where (id,user_id) = (${req.params.id}, "${req.params.user_id}") ORDER BY id ASC;`)
     .then(results => {
       res.send(results.data);
     })
@@ -74,11 +74,11 @@ router.get("/:user_id/:id", function(req, res, next) {
 router.post("/:user_id", function(req, res, next) {
   console.log("Request Body:", req.body); // Log the request body to see what data is being sent from the frontend
 
-  const {grade, location, feels_like, comment, style, tries } = req.body;
+  const {date, grade, location, feels_like, comment, style, tries } = req.body;
   const { user_id } = req.params; // Extract user ID from the URL params
 
   // Check if required fields are filled in
-  if (!date || !grade || !location || !style || !tries) {
+  if (!date || !grade || !location || !style || !tries || !user_id) {
     res.status(400).send("Please fill in all required fields.");
     return;
   }
@@ -95,7 +95,7 @@ router.post("/:user_id", function(req, res, next) {
   db(
     `INSERT INTO climbs (date, grade, location, feels_like, comment, style, tries, user_id) VALUES ("${isoDate}", "${grade}", "${location}", "${feels_like}", "${comment}", "${style}", ${tries}, "${user_id}")`
   )
-    .then(() => db(`SELECT * FROM climbs WHERE user_id = ${user_id} ORDER BY id ASC;`))
+    .then(() => db(`SELECT * FROM climbs WHERE user_id = "${user_id}" ORDER BY id ASC;`))
     .then(results => {
       res.send(results.data);
     })
@@ -107,16 +107,16 @@ router.post("/:user_id", function(req, res, next) {
 
 // DELETE a climb from the DB
 router.delete("/:user_id/:id", function(req, res, next) {
-  db(`SELECT * FROM climbs where (id,user_id) = (${req.params.id}, ${req.params.user_id});`)
+  db(`SELECT * FROM climbs where (id,user_id) = (${req.params.id}, "${req.params.user_id}");`)
     .then(climb => {
       if (!climb.data.length) {
         res.status(404).send({ message: "Climb not found" });
         return;
       }
 
-      return db(`DELETE FROM climbs WHERE (id,user_id) = (${req.params.id}, ${req.params.user_id});`);
+      return db(`DELETE FROM climbs WHERE (id,user_id) = (${req.params.id}, "${req.params.user_id}");`);
     })
-    .then(() => db(`SELECT * FROM climbs WHERE id = ${req.params.user_id} ORDER BY id ASC;`))
+    .then(() => db(`SELECT * FROM climbs WHERE id = ${req.params.id} ORDER BY id ASC;`))
     .then(results => {
       res.send(results.data);
     })

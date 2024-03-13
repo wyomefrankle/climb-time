@@ -37,8 +37,8 @@ function App() {
     getClimbs();
   }, []);
 
-  const getClimbs = (user_id) => {
-    fetch(`/api/climbs/${user_id}`)
+  const getClimbs = () => {
+    fetch(`/api/climbs/wyomefrankle`)
       .then(response => response.json())
       .then(climbs => {
         setClimbs(climbs);
@@ -93,7 +93,7 @@ function App() {
     setNewClimb(prevState => ({ ...prevState, tries: triesInt, date: newDate }));
     
     console.log("New Climb Data:", newClimb); // Log the new climb data before sending the request
-    fetch(`/api/climbs/${user_id}`, {
+    fetch(`/api/climbs/wyomefrankle`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -117,7 +117,7 @@ function App() {
   };
 
   const deleteClimb = (id,user_id) => {
-    fetch(`/api/climbs/${user_id}/${id}`, {
+    fetch(`/api/climbs/wyomefrankle/${id}`, {
       method: "DELETE"
     })
       .then(result => {

@@ -86,7 +86,7 @@ return(
                 className="input"
               />
             </label>
-          ) : null}
+          ) : newClimb.tries === null}
           {<button type="submit" className="submit-button">
             Submit
           </button>}
