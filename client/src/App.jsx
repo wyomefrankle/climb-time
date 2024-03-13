@@ -37,8 +37,8 @@ function App() {
     getClimbs();
   }, []);
 
-  const getClimbs = () => {
-    fetch("/api/climbs")
+  const getClimbs = (user_id) => {
+    fetch(`/api/climbs/${user_id}`)
       .then(response => response.json())
       .then(climbs => {
         setClimbs(climbs);
@@ -76,7 +76,7 @@ function App() {
     addClimb();
   };
 
-  const addClimb = () => {
+  const addClimb = (user_id) => {
       // Check if required fields are filled in
     if (!newClimb.grade || !newClimb.location || !newClimb.style) {
       console.error("Please fill in all required fields.");
@@ -93,7 +93,7 @@ function App() {
     setNewClimb(prevState => ({ ...prevState, tries: triesInt, date: newDate }));
     
     console.log("New Climb Data:", newClimb); // Log the new climb data before sending the request
-    fetch("/api/climbs", {
+    fetch(`/api/climbs/${user_id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -116,8 +116,8 @@ function App() {
       });
   };
 
-  const deleteClimb = id => {
-    fetch(`/api/climbs/${id}`, {
+  const deleteClimb = (id,user_id) => {
+    fetch(`/api/climbs/${user_id}/${id}`, {
       method: "DELETE"
     })
       .then(result => {
@@ -142,93 +142,7 @@ function App() {
     <div className="App">
       <h1 className="title">My Climbing Log</h1>
       <h3 className="subheading"> Add new Climb: </h3>
-      <div>
-        {/* <form onSubmit={e => handleSubmit(e)} className="form">
-          <label className="label">
-            Grade:
-            <select
-              value={newClimb.grade}
-              onChange={handleGradeChange}
-              className="input"
-            >
-              {gradeOptions.map((grade, index) => (
-                <option key={index} value={grade}>
-                  {grade}
-                </option>
-              ))}
-            </select>
-          </label>
-          {<label className="label">
-            Location:
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.location}
-              name="location"
-              className="input"
-            />
-          </label>}
-          {<label className="label">
-            What grade it felt like:
-            <select
-              value={newClimb.feels_like}
-              onChange={handleFeelsLikeChange}
-              className="input"
-            >
-              {gradeOptions.map((feels_like, index) => (
-                <option key={index} value={feels_like}>
-                  {feels_like}
-                </option>
-              ))}
-            </select>
-          </label>}
-          {<label className="label">
-            Date:
-            <DatePicker
-              selected={new Date(newClimb.date)} // Pass the selected date
-              onChange={date => handleDateChange(date)} // Handle date change
-              className="input" // Apply your existing input styling
-            />
-          </label>}
-          {<label className="label">
-            Additional notes:
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.comment}
-              name="comment"
-              className="input"
-            />
-          </label>}
-          <div className="label">
-            Style:
-            {styleOptions.map((style, index) => (
-              <label key={index} className="radio-label">
-                <input
-                  type="radio"
-                  value={style}
-                  checked={newClimb.style === style}
-                  onChange={handleStyleChange}
-                />
-                {style}
-              </label>
-            ))}
-          </div>
-          {newClimb.style != "Flash" ? (
-            <label className="label">
-              Tries:
-              <input
-                type="number"
-                onChange={handleInputChange}
-                value={newClimb.tries}
-                name="tries"
-                className="input"
-              />
-            </label>
-          ) : null}
-          {<button type="submit" className="submit-button">
-            Submit
-          </button>}
-        </form> */}
-        <InputForm
+      <InputForm
         handleSubmit ={handleSubmit}
         handleGradeChange = {handleGradeChange}
         gradeOptions = {gradeOptions}
@@ -238,8 +152,7 @@ function App() {
         handleDateChange = {handleDateChange}
         handleStyleChange = {handleStyleChange}
         styleOptions = {styleOptions}
-        />
-      </div>
+      />
       
       <SelectedLocationInfo
         selectedLocation={selectedLocation} 
