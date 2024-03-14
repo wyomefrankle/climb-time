@@ -107,16 +107,16 @@ router.post("/:user_id", function(req, res, next) {
 
 // DELETE a climb from the DB
 router.delete("/:user_id/:id", function(req, res, next) {
-  db(`SELECT * FROM climbs where (id,user_id) = (${req.params.id}, "${req.params.user_id}");`)
+  db(`SELECT * FROM climbs where id = ${req.params.id} AND user_id = "${req.params.user_id}";`)
     .then(climb => {
       if (!climb.data.length) {
         res.status(404).send({ message: "Climb not found" });
         return;
       }
 
-      return db(`DELETE FROM climbs WHERE (id,user_id) = (${req.params.id}, "${req.params.user_id}");`);
+      return db(`DELETE FROM climbs WHERE id = ${req.params.id};`);
     })
-    .then(() => db(`SELECT * FROM climbs WHERE id = ${req.params.id} ORDER BY id ASC;`))
+    .then(() => db(`SELECT * FROM climbs ORDER BY id ASC;`))
     .then(results => {
       res.send(results.data);
     })
