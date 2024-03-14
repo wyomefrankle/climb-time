@@ -78,7 +78,7 @@ router.post("/:user_id", function(req, res, next) {
   const { user_id } = req.params; // Extract user ID from the URL params
 
   // Check if required fields are filled in
-  if (!date || !grade || !location || !style || !tries || !user_id) {
+  if (!date || !grade || !location || !style || !user_id) {
     res.status(400).send("Please fill in all required fields.");
     return;
   }

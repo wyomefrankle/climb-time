@@ -11,7 +11,7 @@ function InputForm({getClimbs}) {
         feels_like: "3",
         comment:"",
         style:"",
-        tries:""
+        tries:0
       };
       
       const gradeOptions = [
@@ -64,9 +64,13 @@ function InputForm({getClimbs}) {
           console.error("Please fill in all required fields.");
           return;
         }
-    
-        // Convert 'tries' to an integer
-        const triesInt = parseInt(newClimb.tries);
+
+        // If style is "Flash", set tries to null
+        let triesInt = null;
+        if (newClimb.style !== "Flash") {
+            // Convert 'tries' to an integer if it exists
+            triesInt = newClimb.tries !== "" ? parseInt(newClimb.tries) : null;
+        }
     
         // Convert date to ISO 8601 format
         const newDate = new Date(newClimb.date).toISOString().split('T')[0];
@@ -169,18 +173,18 @@ return(
               </label>
             ))}
           </div>
-          {newClimb.style != "Flash" ? (
+          {newClimb.style !== "Flash" && (
             <label className="label">
-              Tries:
-              <input
+                Tries:
+                <input
                 type="number"
                 onChange={handleInputChange}
                 value={newClimb.tries}
                 name="tries"
                 className="input"
-              />
+                />
             </label>
-          ) : newClimb.tries === null}
+            )}
           {<button type="submit" className="submit-button">
             Submit
           </button>}
