@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 export default function Climb() {
   const [climb, setClimb] = useState(null);
   const { id } = useParams();
+  const { user_id } = useParams();
 
   const getClimb = async () => {
     try {
@@ -16,7 +17,7 @@ export default function Climb() {
   };
 
   useEffect(() => {
-    getClimb();
+    getClimb(user_id);
   }, [id]);
   return (
     <div>

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import NewUser from "./NewUser";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ handleLogin }) {
   const [user_id, setUser_id] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLoginClick = () => {
     // Perform login logic
     fetch(`/api/climbs/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({user_id, password})
+      body: JSON.stringify({ user_id, password })
     })
       .then(result => {
         if (!result.ok) {
@@ -23,9 +23,9 @@ function Login() {
       })
       .then(json => {
         // Assuming successful login, call onLogin with user_id
-        // onLogin(user_id);
+        handleLogin(json.user_id); // Pass user_id to parent App component
         // Redirect to the main application page
-        window.location.href = `/climbs/${json.user_id}`;
+        navigate(`/climbs/${json.user_id}`);
       })
       .catch(error => {
         console.error("Error logging in:", error.message);
@@ -34,7 +34,7 @@ function Login() {
 
   return (
     <div>
-    <h1>Welcome to the Login Page</h1>
+      <h1>Welcome to the Login Page</h1>
       <form>
         <div>
           <label>Username:</label>
@@ -42,6 +42,7 @@ function Login() {
             type="text"
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
+            className="form-style"
           />
         </div>
         <div>
@@ -50,9 +51,10 @@ function Login() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="form-style"
           />
         </div>
-        <button type="button" onClick={handleLogin}>
+        <button type="button" onClick={handleLoginClick} className="btn">
           Login
         </button>
       </form>

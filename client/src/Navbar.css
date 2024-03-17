@@ -1,0 +1,26 @@
+.navbar {
+    background-color: #333; /* Dark background color */
+    padding: 10px 0; /* Add some padding */
+  }
+  
+  .navbar-list {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .navbar-item {
+    display: inline-block; /* Display items horizontally */
+    margin-right: 20px; /* Add space between items */
+  }
+  
+  .navbar-link {
+    text-decoration: none; /* Remove underline from links */
+    color: #fff; /* White text color */
+    font-size: 16px; /* Adjust font size */
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline; /* Underline links on hover */
+  }
+  

@@ -1,42 +1,65 @@
 import "./App.css";
-// import "react-datepicker/dist/react-datepicker.css";
-// import SelectedLocationInfo from "./components/SelectedLocationInfo.jsx";
-// import InputForm from "./components/InputForm.jsx";
-import { Routes, Route, Link } from "react-router-dom";
+import "./Navbar.css";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Climbs from "./components/Climbs";
 import Climb from "./components/Climb";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 
-
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  
+  const navigate = useNavigate();
+
+  // Check if user is logged in on initial load
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("user_id");
+    if (storedUserId) {
+      setLoggedInUser(storedUserId);
+    }
+  }, []);
+
+  const handleLogin = (user_id) => {
+    setLoggedInUser(user_id);
+    localStorage.setItem("user_id", user_id);
+    navigate(`/climbs/${user_id}`);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem("user_id");
+    navigate("/login");
+  };
+
   return (
     <>
-      <h1>Boulder book </h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+      <h1>ClimbTime </h1>
+      <nav className="navbar">
+        <ul className="navbar-list">
+          <li className="navbar-item">
+            <Link to="/" className="navbar-link">Home</Link>
           </li>
-          {!loggedInUser && (
-            <li>
-              <Link to="/login">Log in</Link>
-            </li>
-          )}
           {loggedInUser && (
-            <li>
-              <Link to="/climbs">My Climbs</Link>
+            <>
+              <li className="navbar-item">
+                <Link to={`/climbs/${loggedInUser}`} className="navbar-link">My Climbs</Link>
+              </li>
+              <li className="navbar-item">
+                <button onClick={handleLogout} className="navbar-button">Logout</button>
+              </li>
+            </>
+          )}
+          {!loggedInUser && (
+            <li className="navbar-item">
+              <Link to="/login" className="navbar-link">Log in</Link>
             </li>
           )}
         </ul>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/new-user" element={<NewUser />} />
         {/* Define route for displaying climbs for a specific user */}
         <Route path="/climbs/:user_id" element={<Climbs />} />
@@ -45,4 +68,5 @@ function App() {
     </>
   );
 }
+
 export default App;

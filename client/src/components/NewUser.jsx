@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function NewUser() {
   const [user_id, setUser_id] = useState("");
@@ -13,7 +13,7 @@ function NewUser() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ user_id, password, firstname, lastname }) // Send user data to the server
+      body: JSON.stringify({ user_id: user_id, password: password, firstname: firstname, lastname: lastname })
     })
       .then(result => {
         // Handle the response from the server as needed
@@ -55,7 +55,7 @@ function NewUser() {
         <div>
           <label>Name:</label>
           <input
-            type="firstname"
+            type="text"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
           />
@@ -63,7 +63,7 @@ function NewUser() {
         <div>
           <label>Surname:</label>
           <input
-            type="lastname"
+            type="text"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
           />

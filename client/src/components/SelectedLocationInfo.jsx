@@ -33,9 +33,6 @@ function SelectedLocationInfo({climbs, setClimbs}) {
       // Update uniqueLocations based on the updated climbs
       const updatedLocations = [...new Set(updatedClimbs.map(climb => climb.location))];
       setUniqueLocations(updatedLocations);
-  
-      // Log the updated unique locations to verify
-      console.log("Updated unique locations:", updatedLocations);
     })
     .catch(error => {
       console.log(error);
