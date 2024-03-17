@@ -79,7 +79,7 @@ function InputForm({getClimbs}) {
         setNewClimb(prevState => ({ ...prevState, tries: triesInt, date: newDate }));
         
         console.log("New Climb Data:", newClimb); // Log the new climb data before sending the request
-        fetch(`/api/climbs/wyomefrankle`, {
+        fetch(`/api/climbs/${user_id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

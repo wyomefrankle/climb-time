@@ -4,16 +4,16 @@ const db = require("../model/helper");
 
 // Add a login functionality
 router.post("/login", function(req, res, next) {
-  const { username, password } = req.body;
+  const { user_id, password } = req.body;
   
   // Check if username and password are provided
-  if (!username || !password) {
+  if (!user_id || !password) {
     res.status(400).send("Please enter a username and password");
     return;
   }
 
   // Query the database to check if the provided credentials are valid
-  db(`SELECT * FROM users WHERE user_id = "${username}" AND password = "${password}";`)
+  db(`SELECT * FROM users WHERE user_id = "${user_id}" AND password = "${password}";`)
     .then(results => {
       if (results.data.length === 0) {
         // If credentials are not valid, return a response with an error message
@@ -30,12 +30,12 @@ router.post("/login", function(req, res, next) {
 });
 
 //Add a new user
-router.post("/users", function(req, res, next) {
+router.post("/create-user", function(req, res, next) {
   const { user_id, password, firstname, lastname } = req.body;
   
   // Check if all required fields are provided
   if (!user_id || !password || !firstname || !lastname) {
-    res.status(400).send("All fields are required");
+    res.status(400).json({ error: "All fields are required" });
     return;
   }
 
@@ -43,11 +43,11 @@ router.post("/users", function(req, res, next) {
   db(`INSERT INTO users (user_id, password, firstname, lastname) VALUES ("${user_id}", "${password}", "${firstname}", "${lastname}");`)
     .then(() => {
       // Return a success message upon successful insertion
-      res.status(201).send("User created successfully");
+      res.status(201).json({ message: "User created successfully" });
     })
     .catch(err => {
       console.error("Error:", err); // Log any errors that occur
-      res.status(500).send("Internal Server Error");
+      res.status(500).json({ error: "Internal Server Error" });
     });
 });
 

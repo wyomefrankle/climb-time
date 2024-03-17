@@ -14,7 +14,7 @@ function SelectedLocationInfo({climbs, setClimbs}) {
   };
   
   const deleteClimb = (id, user_id) => {
-    fetch(`/api/climbs/wyomefrankle/${id}`, {
+    fetch(`/api/climbs/${user_id}/${id}`, {
       method: "DELETE"
     })
     .then(response => {
