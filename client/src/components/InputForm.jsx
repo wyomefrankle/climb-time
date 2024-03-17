@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from "react-router-dom"; 
 
 function InputForm({getClimbs}) {
+    const { user_id } = useParams();
     const CLIMB_INITIAL_STATE = {
         date: new Date(),
         grade: "3",
@@ -28,6 +30,8 @@ function InputForm({getClimbs}) {
 
       const [newClimb, setNewClimb] = useState(CLIMB_INITIAL_STATE);
       const styleOptions = ["Flash", "Redpoint", "Go"];
+      const [showForm, setShowForm] = useState(false);
+
     
 
       const handleInputChange = (event) => {
@@ -55,7 +59,7 @@ function InputForm({getClimbs}) {
     
       const handleSubmit = event => {
         event.preventDefault();
-        addClimb();
+        addClimb(user_id);
       };
     
       const addClimb = (user_id) => {
@@ -94,8 +98,9 @@ function InputForm({getClimbs}) {
           })
           .then(json => {
             console.log("Response Data:", json); // Log the response data after receiving the response
-            getClimbs();
+            getClimbs(user_id);
             setNewClimb(CLIMB_INITIAL_STATE);
+            setShowForm(false); // Hide the form after submitting
           })
           .catch(error => {
             console.error("Error adding climb:", error.message);
@@ -104,6 +109,10 @@ function InputForm({getClimbs}) {
     
 return(
     <div>
+      {!showForm && (
+        <button onClick={() => setShowForm(true)}>Add New Climb</button>
+          )}
+        {showForm && (
         <form onSubmit={e => handleSubmit(e)} className="form">
           <label className="label">
             Grade:
@@ -189,6 +198,7 @@ return(
             Submit
           </button>}
         </form>
+      )}
     </div>
 )
 }

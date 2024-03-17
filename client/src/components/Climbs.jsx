@@ -14,13 +14,7 @@ export default function Climbs() {
 
     useEffect(() => {
       getClimbs(user_id);
-    }, []);
-
-    // This function handles the login logic
-    const handleLogin = (user_id) => {
-        // Perform actions related to successful login, such as setting authentication state
-        console.log(`User ${user_id} logged in successfully.`);
-    };
+    }, [climbs]);
   
     const getClimbs = (user_id) => {
       fetch(`/api/climbs/${user_id}`)
@@ -37,9 +31,10 @@ export default function Climbs() {
       <div className="App">
         <h1 className="title">{user_id}'s Climbing Log</h1>
         {/* <h3 className="subheading"> Add new Climb: </h3> */}
-        {/* <InputForm climbs={climbs} getClimbs={getClimbs} /> Pass props */}
-  
+
         <SelectedLocationInfo climbs={climbs} setClimbs={getClimbs} />
+        <InputForm climbs={climbs} getClimbs={getClimbs} />
+
       </div>
     );
 }

@@ -13,13 +13,7 @@ import NewUser from "./components/NewUser";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [redirectToClimbs, setRedirectToClimbs] = useState(false);
-
-  const handleLogin = (user_id) => {
-    setLoggedInUser(user_id);
-    setRedirectToClimbs(true);
-  };
-
+  
   return (
     <>
       <h1>Boulder book </h1>

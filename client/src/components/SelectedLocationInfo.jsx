@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; 
 
 // This component will receive props for the selected location data and the delete function.
 function SelectedLocationInfo({climbs, setClimbs}) {
-
+  const { user_id } = useParams();
+  const [uniqueLocations, setUniqueLocations] = useState([])
   const [selectedLocation, setSelectedLocation] = useState(null); 
 
-  // Get unique locations from climbs array
-  const uniqueLocations = [...new Set(climbs.map(climb => climb.location))];
+  // Update uniqueLocations whenever climbs changes
+  useEffect(() => {
+    const locations = [...new Set(climbs.map(climb => climb.location))];
+    setUniqueLocations(locations);
+  }, [climbs]);
 
-  
-  const handleLocationClick = (climb) => {
-    setSelectedLocation(climb);
+  const handleLocationClick = (location) => {
+    setSelectedLocation(location);
   };
   
-  const deleteClimb = (id, user_id) => {
+  const deleteClimb = (id) => {
     fetch(`/api/climbs/${user_id}/${id}`, {
       method: "DELETE"
     })
@@ -21,37 +25,44 @@ function SelectedLocationInfo({climbs, setClimbs}) {
       if (!response.ok) {
         throw new Error("Failed to delete climb");
       }
-      // Remove the deleted climb from the state
+      // Remove the deleted climb from the state without mutating the original array
       const updatedClimbs = climbs.filter(climb => climb.id !== id);
       // Update the state with the filtered climbs
       setClimbs(updatedClimbs);
-      // Clear the selectedLocation if it matches the deleted climb
-      if (selectedLocation && selectedLocation.id === id) {
-        setSelectedLocation(null);
-      }
+  
+      // Update uniqueLocations based on the updated climbs
+      const updatedLocations = [...new Set(updatedClimbs.map(climb => climb.location))];
+      setUniqueLocations(updatedLocations);
+  
+      // Log the updated unique locations to verify
+      console.log("Updated unique locations:", updatedLocations);
     })
     .catch(error => {
       console.log(error);
     });
-  };
+  };    
   
 
   return (
     <div className="location-section">
       <h3 className="subheading">Locations:</h3>
       <ul className="locations-list">
-        {/* Display unique locations */}
-        {uniqueLocations.map(location => (
-          <li key={location} onClick={() => handleLocationClick({ location })}>{location}</li>
-        ))}
+      {/* Display unique locations */}
+      {uniqueLocations.map(location => {
+        return (
+          <li key={location} onClick={() => handleLocationClick(location)}>
+            {location}
+          </li>
+        );
+      })}
       </ul>
 
       {selectedLocation && (
         <div className="selected-location-info">
-          <h3>{selectedLocation.location}</h3>
+          <h3>{selectedLocation}</h3>
           <div className="climbs-list">
             {/* Filter climbs based on selected location */}
-            {climbs.filter(climb => climb.location === selectedLocation.location).map(filteredClimb => (
+            {climbs.filter(climb => climb.location === selectedLocation).map(filteredClimb => (
               <div key={filteredClimb.id} className="climb-container">
                 <div className="climb">
                   <li>Location: {filteredClimb.location}</li>

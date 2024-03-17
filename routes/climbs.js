@@ -29,7 +29,7 @@ router.post("/login", function(req, res, next) {
     });
 });
 
-//Add a new user
+// Add a new user
 router.post("/create-user", function(req, res, next) {
   const { user_id, password, firstname, lastname } = req.body;
   
@@ -39,8 +39,17 @@ router.post("/create-user", function(req, res, next) {
     return;
   }
 
-  // Query the database to insert the new user
-  db(`INSERT INTO users (user_id, password, firstname, lastname) VALUES ("${user_id}", "${password}", "${firstname}", "${lastname}");`)
+  // Check if the user_id already exists in the database
+  db(`SELECT * FROM users WHERE user_id = "${user_id}";`)
+    .then(results => {
+      if (results.data.length > 0) {
+        // If user_id already exists, return an error response
+        res.status(400).json({ error: "User ID already exists" });
+      } else {
+        // If user_id doesn't exist, proceed with inserting the new user
+        return db(`INSERT INTO users (user_id, password, firstname, lastname) VALUES ("${user_id}", "${password}", "${firstname}", "${lastname}");`);
+      }
+    })
     .then(() => {
       // Return a success message upon successful insertion
       res.status(201).json({ message: "User created successfully" });
@@ -50,6 +59,7 @@ router.post("/create-user", function(req, res, next) {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
+
 
 
 /* GET climbs listing. */
@@ -107,20 +117,35 @@ router.post("/:user_id", function(req, res, next) {
 
 // DELETE a climb from the DB
 router.delete("/:user_id/:id", function(req, res, next) {
-  db(`SELECT * FROM climbs where id = ${req.params.id} AND user_id = "${req.params.user_id}";`)
-    .then(climb => {
-      if (!climb.data.length) {
+  // Ensure user_id and id are properly sanitized
+  if (!req.params.user_id || !req.params.id || isNaN(req.params.id)) {
+    res.status(400).send({ error: "Invalid parameters" });
+    return;
+  }
+
+  db(`DELETE FROM climbs WHERE id = ${req.params.id} AND user_id = "${req.params.user_id}";`)
+    .then(deleted => {
+      if (deleted.affectedRows === 0) {
+        // If no climb was deleted, send a 404 status and message
         res.status(404).send({ message: "Climb not found" });
         return;
       }
 
-      return db(`DELETE FROM climbs WHERE id = ${req.params.id};`);
+      // Fetch climbs after deletion
+      return db(`SELECT * FROM climbs WHERE user_id = "${req.params.user_id}" ORDER BY id ASC;`);
     })
-    .then(() => db(`SELECT * FROM climbs ORDER BY id ASC;`))
     .then(results => {
+      // Send the updated climbs list
       res.send(results.data);
     })
-    .catch(err => res.status(500).send(err)); //send 500 error message if there is an error
+    .catch(err => {
+      // If there's an error, send a 500 status and error message
+      console.error("Error:", err);
+      res.status(500).send({ error: "Internal Server Error" });
+    });
 });
+
+
+
 
 module.exports = router;
