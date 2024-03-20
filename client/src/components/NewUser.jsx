@@ -42,6 +42,7 @@ function NewUser() {
             type="text"
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
+            className="form-style"
           />
         </div>
         <div>
@@ -50,6 +51,7 @@ function NewUser() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="form-style"
           />
         </div>
         <div>
@@ -58,6 +60,7 @@ function NewUser() {
             type="text"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
+            className="form-style"
           />
         </div>
         <div>
@@ -66,9 +69,10 @@ function NewUser() {
             type="text"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
+            className="form-style"
           />
         </div>
-        <button type="button" onClick={handleCreateAccount}>
+        <button type="button" onClick={handleCreateAccount} className="btn">
           Create Account
         </button>
       </form>
