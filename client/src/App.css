@@ -250,3 +250,9 @@ h6 span{
 .img-container:hover .text {
   text-shadow: 0 0 20px rgb(250, 246, 6);
 }
+
+.map {
+  width: 25%; /* Set container to half the width of the page */
+  height: 25%; /* Set height as desired */
+  margin: 0 auto; /* Center the container horizontally */
+}

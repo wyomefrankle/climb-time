@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet-geosearch/dist/geosearch.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom"; 
+import "../App.css";
 
-function InputForm({getClimbs}) {
+function InputForm({ getClimbs }) {
     const { user_id } = useParams();
     const CLIMB_INITIAL_STATE = {
         date: new Date(),
         grade: "3",
         location:"",
+        lat:52.38,
+        lon: 4.64,
         feels_like: "3",
         comment:"",
         style:"",
@@ -28,8 +30,6 @@ function InputForm({getClimbs}) {
         "7A >",
         "Comp"
       ];
-
-      const position = [51.505, -0.09]
 
       const [newClimb, setNewClimb] = useState(CLIMB_INITIAL_STATE);
       const styleOptions = ["Flash", "Redpoint", "Go"];
@@ -67,7 +67,7 @@ function InputForm({getClimbs}) {
     
       const addClimb = (user_id) => {
           // Check if required fields are filled in
-        if (!newClimb.grade || !newClimb.location || !newClimb.style) {
+        if (!newClimb.grade || !newClimb.location || !newClimb.style || !newClimb.lat || !newClimb.lon) {
           console.error("Please fill in all required fields.");
           return;
         }
@@ -109,7 +109,8 @@ function InputForm({getClimbs}) {
             console.error("Error adding climb:", error.message);
           });
       };
-    
+
+
 return(
     <div>
       {!showForm && (
@@ -137,6 +138,24 @@ return(
               onChange={e => handleInputChange(e)}
               value={newClimb.location}
               name="location"
+              className="input"
+            />
+          </label>}
+          {<label className="label">
+            Latitude:
+            <input
+              onChange={e => handleInputChange(e)}
+              value={newClimb.lat}
+              name="lat"
+              className="input"
+            />
+          </label>}
+          {<label className="label">
+            Longitude:
+            <input
+              onChange={e => handleInputChange(e)}
+              value={newClimb.lon}
+              name="lon"
               className="input"
             />
           </label>}
@@ -198,21 +217,6 @@ return(
             </label>
             )}
 
-            <div>
-            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={position}>
-                  {/* <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                  </Popup> */}
-                </Marker>
-                
-              </MapContainer>
-            </div>
-
           {<button type="submit" className="submit-button">
             Submit
           </button>}
@@ -221,5 +225,9 @@ return(
     </div>
 )
 }
+
+InputForm.propTypes = {
+  getClimbs: PropTypes.func.isRequired,
+};
 
 export default InputForm;

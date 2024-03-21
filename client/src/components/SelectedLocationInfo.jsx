@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; 
+import PropTypes from 'prop-types';
+
 
 // This component will receive props for the selected location data and the delete function.
 function SelectedLocationInfo({climbs, setClimbs}) {
@@ -84,5 +86,11 @@ function SelectedLocationInfo({climbs, setClimbs}) {
     </div>
   );
 }
+
+SelectedLocationInfo.propTypes = {
+  climbs: PropTypes.func.isRequired,
+  setClimbs: PropTypes.func.isRequired,
+};
+
 
 export default SelectedLocationInfo;

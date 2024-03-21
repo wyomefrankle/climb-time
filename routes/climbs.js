@@ -84,11 +84,11 @@ router.get("/:user_id/:id", function(req, res, next) {
 router.post("/:user_id", function(req, res, next) {
   console.log("Request Body:", req.body); // Log the request body to see what data is being sent from the frontend
 
-  const {date, grade, location, feels_like, comment, style, tries } = req.body;
+  const {date, grade, location, feels_like, comment, style, tries, lat, lon } = req.body;
   const { user_id } = req.params; // Extract user ID from the URL params
 
   // Check if required fields are filled in
-  if (!date || !grade || !location || !style || !user_id) {
+  if (!date || !grade || !location || !style || !user_id || !lat || !lon) {
     res.status(400).send("Please fill in all required fields.");
     return;
   }
@@ -103,7 +103,7 @@ router.post("/:user_id", function(req, res, next) {
   }
 
   db(
-    `INSERT INTO climbs (date, grade, location, feels_like, comment, style, tries, user_id) VALUES ("${isoDate}", "${grade}", "${location}", "${feels_like}", "${comment}", "${style}", ${tries}, "${user_id}")`
+    `INSERT INTO climbs (date, grade, location, feels_like, comment, style, tries, user_id, lat, lon) VALUES ("${isoDate}", "${grade}", "${location}", "${feels_like}", "${comment}", "${style}", ${tries}, "${user_id}", ${lat}, ${lon})`
   )
     .then(() => db(`SELECT * FROM climbs WHERE user_id = "${user_id}" ORDER BY id ASC;`))
     .then(results => {

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function Login({ handleLogin }) {
   const [user_id, setUser_id] = useState("");
@@ -58,10 +59,14 @@ function Login({ handleLogin }) {
           Login
         </button>
       </form>
-      <h3>Don't have an account?</h3>
+      <h3>Don&apos;t have an account?</h3>
       <Link to="/new-user">Create New Account</Link>
     </div>
   );
 }
+
+Login.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+};
 
 export default Login;

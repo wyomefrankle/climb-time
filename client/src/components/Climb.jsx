@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Climb() {
@@ -6,19 +6,20 @@ export default function Climb() {
   const { id } = useParams();
   const { user_id } = useParams();
 
-  const getClimb = async () => {
-    try {
-      const response = await fetch(`/api/climbs/wyomefrankle/${id}`);
-      const climb = await response.json();
-      setClimb(climb);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  const getClimb = useCallback((user_id, id) => {
+    fetch(`/api/climb/${user_id}/${id}`)
+      .then((response) => response.json())
+      .then((climb) => {
+        setClimb(climb);
+      })
+      .catch((error) => {
+        console.error("Error fetching climb:", error);
+      });
+  }, []);
 
   useEffect(() => {
-    getClimb(user_id);
-  }, [id]);
+    getClimb(user_id, id);
+  }, [user_id, getClimb]);
   return (
     <div>
       {climb && (

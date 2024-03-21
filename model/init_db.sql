@@ -28,6 +28,8 @@ CREATE TABLE climbs(
     tries INT,
     -- user id 
     user_id TEXT NOT null,
+    lat TINYINT(180) NOT null,
+    lon TINYINT(180) NOT null,
     PRIMARY KEY (id)
 );
 
