@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom"; 
 import "../App.css";
 
-function InputForm({ getClimbs }) {
+function InputForm({ getClimbs, newClimbLocation }) {
     const { user_id } = useParams();
     const CLIMB_INITIAL_STATE = {
         date: new Date(),
         grade: "3",
         location:"",
         lat:52.38,
-        lon: 4.64,
+        lng: 4.64,
         feels_like: "3",
         comment:"",
         style:"",
@@ -67,7 +67,7 @@ function InputForm({ getClimbs }) {
     
       const addClimb = (user_id) => {
           // Check if required fields are filled in
-        if (!newClimb.grade || !newClimb.location || !newClimb.style || !newClimb.lat || !newClimb.lon) {
+        if (!newClimb.grade || !newClimb.location || !newClimb.style || !newClimb.lat || !newClimb.lng) {
           console.error("Please fill in all required fields.");
           return;
         }
@@ -109,6 +109,17 @@ function InputForm({ getClimbs }) {
             console.error("Error adding climb:", error.message);
           });
       };
+
+      useEffect(() => {
+        if (newClimbLocation) {
+          // Update the newClimb state with the clicked location's latitude and longitude values
+          setNewClimb(prevState => ({
+            ...prevState,
+            lat: newClimbLocation.lat,
+            lng: newClimbLocation.lng
+          }));
+        }
+      }, [newClimbLocation]);
 
 
 return(
@@ -154,8 +165,8 @@ return(
             Longitude:
             <input
               onChange={e => handleInputChange(e)}
-              value={newClimb.lon}
-              name="lon"
+              value={newClimb.lng}
+              name="lng"
               className="input"
             />
           </label>}
