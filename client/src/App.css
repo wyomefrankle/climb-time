@@ -29,7 +29,7 @@ body {
 .title {
   font-size: 36px;
   margin-bottom: 20px;
-  color: #007aff; /* Blue accent color */
+  color: #555;
 }
 
 /* Styling for the sub-heading */
@@ -77,18 +77,6 @@ body {
 
 .submit-button:hover {
   background-color: #45a049; /* Darker green on hover */
-}
-
-/* Styling for the climbs list */
-.climb-container {
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 6px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.climb {
-  margin-bottom: 10px;
 }
 
 /* Styling for the delete button */

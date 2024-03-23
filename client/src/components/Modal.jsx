@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-export default function Modal({ launchBtnText, modalTitle }) {
+export default function Modal({ launchBtnText, modalTitle, handleCreateAccount }) {
   return (
     <div className="m-3">
       <button
@@ -9,6 +9,7 @@ export default function Modal({ launchBtnText, modalTitle }) {
         className="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
+        onClick = {handleCreateAccount}
       >
         {launchBtnText}
       </button>

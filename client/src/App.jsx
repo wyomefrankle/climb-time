@@ -72,6 +72,9 @@ function App() {
           )}
 
         </ul>
+        <footer className="text-white-50 text-center p-3">
+        Created by Wyome Frankle
+      </footer>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />

@@ -65,7 +65,14 @@ export default function Climbs() {
     return (
         <div className="App">
             <h1 className="title">{user_id}&apos;s Climbing Log</h1>
-            <div className="map">
+            <div className="container"> 
+            <div className="col">
+            {/* SelectedLocationInfo component */}
+            <SelectedLocationInfo climbs={climbs} setClimbs={setClimbs}/>
+            {/* InputForm component */}
+            <InputForm climbs={climbs} getClimbs={getClimbs} newClimbLocation={newClimbLocation}/>
+            </div>
+            <div className="col">
                 {/* MapContainer component */}
                 <MapContainer center={home_position} zoom={10} ref={mapRef} scrollWheelZoom={false} style={{ height: "50vh", width: "50vw" }}>
                     <TileLayer
@@ -83,11 +90,8 @@ export default function Climbs() {
                     {/* LocationMarkers component */}
                     <LocationMarkers setNewClimbLocation={setNewClimbLocation} locations={locations} setLocations={setLocations}/>
                 </MapContainer>
-            </div>
-            {/* SelectedLocationInfo component */}
-            <SelectedLocationInfo climbs={climbs} setClimbs={setClimbs} />
-            {/* InputForm component */}
-            <InputForm climbs={climbs} getClimbs={getClimbs} newClimbLocation={newClimbLocation} />
+                </div>
         </div>
+    </div>
     );
 }

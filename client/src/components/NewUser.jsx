@@ -78,12 +78,10 @@ function NewUser() {
             className="form-style"
           />
         </div>
-        {/* <button type="button" onClick={handleCreateAccount} className="btn">
-          Create Account
-        </button> */}
         <Modal
           launchBtnText="Create Account"
           modalTitle="User successfully created!🎉"
+          handleCreateAccount={handleCreateAccount}
         />
       </form>
     </div>

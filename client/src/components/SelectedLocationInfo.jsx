@@ -44,6 +44,8 @@ function SelectedLocationInfo({climbs, setClimbs}) {
 
   return (
     <div className="location-section">
+      <div className="row">
+        <div className="col">
       <h3 className="subheading">Locations:</h3>
       <ul className="locations-list">
       {/* Display unique locations */}
@@ -55,31 +57,39 @@ function SelectedLocationInfo({climbs, setClimbs}) {
         );
       })}
       </ul>
+          </div>
+        </div>
 
       {selectedLocation && (
-        <div className="selected-location-info">
-          <h3>{selectedLocation}</h3>
-          <div className="climbs-list">
-            {/* Filter climbs based on selected location */}
-            {climbs.filter(climb => climb.location === selectedLocation).map(filteredClimb => (
-              <div key={filteredClimb.id} className="climb-container">
-                <div className="climb">
-                  <li>Location: {filteredClimb.location}</li>
-                  <li>Date: {new Date(filteredClimb.date).toLocaleDateString()}</li>
-                  <li>Grade: {filteredClimb.grade}</li>
-                  <li>What grade it felt like: {filteredClimb.feels_like}</li>
-                  <li>Additional notes: {filteredClimb.comment}</li>
-                  <li>Style: {filteredClimb.style}</li>
-                  <li>Tries: {filteredClimb.tries}</li>
+        <div className="row">
+          <div className="col">
+            <div className="card" style={{ width: "30rem" }}>
+              <div className="card-body">
+                <h3>{selectedLocation}</h3>
+                <div className="card-title">
+                  {/* Filter climbs based on selected location */}
+                  {climbs.filter(climb => climb.location === selectedLocation).map(filteredClimb => (
+                    <div key={filteredClimb.id}>
+                      <div className="card-text">
+                        <li>Location: {filteredClimb.location}</li>
+                        <li>Date: {new Date(filteredClimb.date).toLocaleDateString()}</li>
+                        <li>Grade: {filteredClimb.grade}</li>
+                        <li>What grade it felt like: {filteredClimb.feels_like}</li>
+                        <li>Additional notes: {filteredClimb.comment}</li>
+                        <li>Style: {filteredClimb.style}</li>
+                        <li>Tries: {filteredClimb.tries}</li>
+                      </div>
+                      <button
+                        onClick={() => deleteClimb(filteredClimb.id)}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
                 </div>
-                <button
-                  onClick={() => deleteClimb(filteredClimb.id)}
-                  className="delete-button"
-                >
-                  Delete
-                </button>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       )}
