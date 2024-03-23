@@ -24,3 +24,10 @@
     text-decoration: underline; /* Underline links on hover */
   }
   
+  .navbar-item-logo {
+    display: inline-block; /* Display items horizontally */
+    font-size: 30px; /* Adjust font size */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: #c4c3ca;
+  }

@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import "./Navbar.css";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
@@ -14,29 +14,44 @@ function App() {
 
   // Check if user is logged in on initial load
   useEffect(() => {
-    const storedUserId = localStorage.getItem("user_id");
-    if (storedUserId) {
-      setLoggedInUser(storedUserId);
+    try {
+      const storedUserId = localStorage.getItem("user_id");
+      if (storedUserId) {
+        setLoggedInUser(storedUserId);
+      }
+    } catch (error) {
+      console.error("Error fetching user ID from localStorage:", error);
     }
-  }, []);
+  }, []);  
 
-  const handleLogin = (user_id) => {
-    setLoggedInUser(user_id);
-    localStorage.setItem("user_id", user_id);
-    navigate(`/climbs/${user_id}`);
-  };
+  const handleLogin = async (user_id) => {
+    try {
+      setLoggedInUser(user_id);
+      localStorage.setItem("user_id", user_id);
+      navigate(`/climbs/${user_id}`);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };  
 
-  const handleLogout = () => {
-    setLoggedInUser(null);
-    localStorage.removeItem("user_id");
-    navigate("/login");
-  };
+  const handleLogout = async () => {
+    try {
+      setLoggedInUser(null);
+      localStorage.removeItem("user_id");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };  
 
   return (
     <>
-      <h1>ClimbTime </h1>
+      {/* <h1>ClimbTime </h1> */}
       <nav className="navbar">
         <ul className="navbar-list">
+        <li className="navbar-item-logo">
+          <h1 className="navbar-item-logo">ClimbTime</h1>
+        </li> <br/>
           <li className="navbar-item">
             <Link to="/" className="navbar-link">Home</Link>
           </li>
@@ -55,6 +70,7 @@ function App() {
               <Link to="/login" className="navbar-link">Log in</Link>
             </li>
           )}
+
         </ul>
       </nav>
       <Routes>

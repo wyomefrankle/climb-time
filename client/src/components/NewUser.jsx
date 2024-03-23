@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Modal from "./Modal";
 
 function NewUser() {
   const [user_id, setUser_id] = useState("");
@@ -30,6 +31,11 @@ function NewUser() {
         // Handle errors, e.g., show an error message to the user
         console.error("Error creating user account:", error.message);
       });
+            // Clear the form inputs after successful submission
+            setUser_id("");
+            setPassword("");
+            setFirstname("");
+            setLastname("");
   };
 
   return (
@@ -72,9 +78,13 @@ function NewUser() {
             className="form-style"
           />
         </div>
-        <button type="button" onClick={handleCreateAccount} className="btn">
+        {/* <button type="button" onClick={handleCreateAccount} className="btn">
           Create Account
-        </button>
+        </button> */}
+        <Modal
+          launchBtnText="Create Account"
+          modalTitle="User successfully created!🎉"
+        />
       </form>
     </div>
   );

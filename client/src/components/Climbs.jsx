@@ -35,13 +35,12 @@ export default function Climbs() {
     // Fetch climbing data when user_id changes
     useEffect(() => {
         getClimbs(user_id);
-    }, [user_id, getClimbs]);
+    }, [user_id]);
 
     // Update locations when climbs state changes
     useEffect(() => {
         const updatedLocations = climbs.map(climb => [parseFloat(climb.lat), parseFloat(climb.lng)]);
         setLocations(updatedLocations);
-        console.log("Updated locations:", updatedLocations);
     }, [climbs]);
 
     // Add the search control to the map
@@ -82,7 +81,7 @@ export default function Climbs() {
                         </Marker>
                     ))}
                     {/* LocationMarkers component */}
-                    <LocationMarkers setNewClimbLocation={setNewClimbLocation} />
+                    <LocationMarkers setNewClimbLocation={setNewClimbLocation} locations={locations} setLocations={setLocations}/>
                 </MapContainer>
             </div>
             {/* SelectedLocationInfo component */}

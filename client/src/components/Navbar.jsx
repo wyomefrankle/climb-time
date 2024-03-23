@@ -18,6 +18,9 @@ export default function Navbar({ loggedInUser }) {
             <Link to={`/climbs/${loggedInUser}`}>My Climbs</Link>
           </li>
         )}
+        <li className="navbar-item">
+          <Link to="/" className="navbar-link">Home</Link>
+        </li>
       </ul>
     </nav>
   );
