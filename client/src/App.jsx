@@ -1,4 +1,4 @@
-// import "./App.css";
+import "./App.css";
 import "./Navbar.css";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
@@ -61,7 +61,7 @@ function App() {
                 <Link to={`/climbs/${loggedInUser}`} className="navbar-link">My Climbs</Link>
               </li>
               <li className="navbar-item">
-                <button onClick={handleLogout} className="navbar-button">Logout</button>
+                <button onClick={handleLogout} className="btn">Logout</button>
               </li>
             </>
           )}

@@ -119,17 +119,17 @@ body {
   text-align: center;
   border: none;
   background-color: #ffeba7;
-  color: #102770;
+  color: #454bbc;
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
 .btn:active,
 .btn:focus{
-  background-color: #102770;
+  background-color: #454bbc;
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 .btn:hover{
-  background-color: #102770;
+  background-color: #454bbc;
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
@@ -216,7 +216,6 @@ h6 span{
 }
 .img-container {
   position: relative;
-  width: 50%;
 }
 .img-container:hover .overlay {
   opacity: 1;

@@ -125,12 +125,11 @@ function InputForm({ getClimbs, newClimbLocation }) {
 return(
     <div>
       {!showForm && (
-        <button onClick={() => setShowForm(true)}>Add New Climb</button>
+        <button onClick={() => setShowForm(true)} className='btn'>Add New Climb</button>
           )}
         {showForm && (
         <form onSubmit={e => handleSubmit(e)} className="form">
-          <label className="label">
-            Grade:
+          <label className="form-label">Grade:</label>
             <select
               value={newClimb.grade}
               onChange={handleGradeChange}
@@ -142,35 +141,33 @@ return(
                 </option>
               ))}
             </select>
-          </label>
-          {<label className="label">
-            Location:
+            <br/>
+          <label className="form-label">Location:</label>
             <input
               onChange={e => handleInputChange(e)}
               value={newClimb.location}
               name="location"
-              className="input"
+              className="form-control"
             />
-          </label>}
-          {<label className="label">
+          {<label className="form-label">
             Latitude:
             <input
               onChange={e => handleInputChange(e)}
               value={newClimb.lat}
               name="lat"
-              className="input"
+              className="form-control"
             />
           </label>}
-          {<label className="label">
+          {<label className="form-label">
             Longitude:
             <input
               onChange={e => handleInputChange(e)}
               value={newClimb.lng}
               name="lng"
-              className="input"
+              className="form-control"
             />
           </label>}
-          {<label className="label">
+          {<label className="form-label">
             What grade it felt like:
             <select
               value={newClimb.feels_like}
@@ -184,24 +181,24 @@ return(
               ))}
             </select>
           </label>}
-          {<label className="label">
+          {<label className="form-label">
             Date:
             <DatePicker
               selected={new Date(newClimb.date)} // Pass the selected date
               onChange={date => handleDateChange(date)} // Handle date change
-              className="input" // Apply your existing input styling
+              className="form-control" // Apply your existing input styling
             />
           </label>}
-          {<label className="label">
+          {<label className="form-label">
             Additional notes:
             <input
               onChange={e => handleInputChange(e)}
               value={newClimb.comment}
               name="comment"
-              className="input"
+              className="form-control"
             />
           </label>}
-          <div className="label">
+          <div className="form-label">
             Style:
             {styleOptions.map((style, index) => (
               <label key={index} className="radio-label">
@@ -216,7 +213,7 @@ return(
             ))}
           </div>
           {newClimb.style !== "Flash" && (
-            <label className="label">
+            <label className="form-label">
                 Tries:
                 <input
                 type="number"
