@@ -39,43 +39,43 @@ function NewUser() {
   };
 
   return (
-    <div>
-      <h1>Create New User Account</h1>
-      <form>
+    <div className="App">
+      <h1 className='title'>Create account</h1>
+      <form className='form'>
         <div>
-          <label>Username:</label>
+          <label className="form-label">Username:</label>
           <input
             type="text"
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
-            className="form-style"
+            className="form-control"
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label className="form-label">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="form-style"
+            className="form-control"
           />
         </div>
         <div>
-          <label>Name:</label>
+          <label className="form-label">Name:</label>
           <input
             type="text"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
-            className="form-style"
+            className="form-control"
           />
         </div>
         <div>
-          <label>Surname:</label>
+          <label className="form-label">Surname:</label>
           <input
             type="text"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
-            className="form-style"
+            className="form-control"
           />
         </div>
         <Modal

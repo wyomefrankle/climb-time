@@ -1,13 +1,8 @@
 .navbar {
-    background-color: #333; /* Dark background color */
+    background-color: #7473B7; /* Dark background color */
     padding: 10px 0; /* Add some padding */
   }
   
-  .navbar-list {
-    list-style-type: none; /* Remove bullet points */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-  }
   
   .navbar-item {
     display: inline-block; /* Display items horizontally */
@@ -26,8 +21,10 @@
   
   .navbar-item-logo {
     display: inline-block; /* Display items horizontally */
-    font-size: 30px; /* Adjust font size */
+    font-size: 32px; /* Adjust font size */
     font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    color: #c4c3ca;
+    font-weight: 400;
+    color: #454bbc;
+    text-shadow: 0 0 20px rgb(253, 253, 252);
+    -webkit-text-stroke: 0.17px white;
   }

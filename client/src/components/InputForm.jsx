@@ -18,24 +18,10 @@ function InputForm({ getClimbs, newClimbLocation }) {
         style:"",
         tries:0
       };
-      
-      const gradeOptions = [
-        "3",
-        "4",
-        "5A/B",
-        "5B/C",
-        "5C/6A",
-        "6A/B",
-        "6B/7A",
-        "7A >",
-        "Comp"
-      ];
 
       const [newClimb, setNewClimb] = useState(CLIMB_INITIAL_STATE);
       const styleOptions = ["Flash", "Redpoint", "Go"];
       const [showForm, setShowForm] = useState(false);
-
-    
 
       const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -123,114 +109,125 @@ function InputForm({ getClimbs, newClimbLocation }) {
 
 
 return(
-    <div>
-      {!showForm && (
+  <div>
+  {!showForm && (
         <button onClick={() => setShowForm(true)} className='btn'>Add New Climb</button>
           )}
         {showForm && (
-        <form onSubmit={e => handleSubmit(e)} className="form">
-          <label className="form-label">Grade:</label>
-            <select
-              value={newClimb.grade}
-              onChange={handleGradeChange}
-              className="input"
-            >
-              {gradeOptions.map((grade, index) => (
-                <option key={index} value={grade}>
-                  {grade}
-                </option>
-              ))}
-            </select>
-            <br/>
-          <label className="form-label">Location:</label>
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.location}
-              name="location"
-              className="form-control"
-            />
-          {<label className="form-label">
-            Latitude:
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.lat}
-              name="lat"
-              className="form-control"
-            />
-          </label>}
-          {<label className="form-label">
-            Longitude:
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.lng}
-              name="lng"
-              className="form-control"
-            />
-          </label>}
-          {<label className="form-label">
-            What grade it felt like:
-            <select
-              value={newClimb.feels_like}
-              onChange={handleFeelsLikeChange}
-              className="input"
-            >
-              {gradeOptions.map((feels_like, index) => (
-                <option key={index} value={feels_like}>
-                  {feels_like}
-                </option>
-              ))}
-            </select>
-          </label>}
-          {<label className="form-label">
-            Date:
-            <DatePicker
-              selected={new Date(newClimb.date)} // Pass the selected date
-              onChange={date => handleDateChange(date)} // Handle date change
-              className="form-control" // Apply your existing input styling
-            />
-          </label>}
-          {<label className="form-label">
-            Additional notes:
-            <input
-              onChange={e => handleInputChange(e)}
-              value={newClimb.comment}
-              name="comment"
-              className="form-control"
-            />
-          </label>}
-          <div className="form-label">
-            Style:
-            {styleOptions.map((style, index) => (
-              <label key={index} className="radio-label">
-                <input
-                  type="radio"
-                  value={style}
-                  checked={newClimb.style === style}
-                  onChange={handleStyleChange}
-                />
-                {style}
-              </label>
-            ))}
+          <div className="App">
+            <h1>Add New Climb</h1>
+            <form onSubmit={e => handleSubmit(e)} className="form">
+          <div className="form-group">
+              <label className="form-label">Grade:</label>
+              <select className="form-control" value={newClimb.grade} onChange={handleGradeChange} style={{ width: '40%' }}>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5A/B">5A/5B</option>
+                  <option value="5B/C">5B/5C</option>
+                  <option value="6A/B">5B/5C</option>
+                  <option value="7A">7A</option>
+                  <option value="Comp">Comp</option>
+              </select>
           </div>
-          {newClimb.style !== "Flash" && (
-            <label className="form-label">
-                Tries:
-                <input
-                type="number"
-                onChange={handleInputChange}
-                value={newClimb.tries}
-                name="tries"
-                className="input"
-                />
-            </label>
-            )}
-
-          {<button type="submit" className="submit-button">
-            Submit
-          </button>}
-        </form>
-      )}
-    </div>
+          <div className="form-group">
+              <label className="form-label">Location:</label>
+              <input
+                  onChange={e => handleInputChange(e)}
+                  value={newClimb.location}
+                  name="location"
+                  className="form-control"
+                  style={{ width: '40%' }}
+              />
+          </div>
+          {/* Include latitude and longitude inputs */}
+          <div className="form-group">
+              <label className="form-label">Latitude:</label>
+              <input
+                  onChange={e => handleInputChange(e)}
+                  value={newClimb.lat}
+                  name="lat"
+                  className="form-control"
+                  style={{ width: '40%' }}
+              />
+          </div>
+          <div className="form-group">
+              <label className="form-label">Longitude:</label>
+              <input
+                  onChange={e => handleInputChange(e)}
+                  value={newClimb.lng}
+                  name="lng"
+                  className="form-control"
+                  style={{ width: '40%' }}
+              />
+          </div>
+          <div className="form-group">
+              <label className="form-label">What grade it felt like:</label>
+              <select className="form-control" value={newClimb.feels_like} onChange={handleFeelsLikeChange} style={{ width: '40%' }}>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5A/B">5A/5B</option>
+                  <option value="5B/C">5B/5C</option>
+                  <option value="6A/B">5B/5C</option>
+                  <option value="7A">7A</option>
+                  <option value="Comp">Comp</option>
+              </select>
+          </div>
+          <div className="form-group">
+              <label className="form-label">Date:</label>
+              <DatePicker
+                  selected={new Date(newClimb.date)} // Pass the selected date
+                  onChange={date => handleDateChange(date)} // Handle date change
+                  className="form-control"
+                  style={{ width: '40%' }}
+                  />
+                  </div>
+                    <div className="form-group">
+                        <label className="form-label">Additional notes:</label>
+                        <input
+                            onChange={e => handleInputChange(e)}
+                            value={newClimb.comment}
+                            name="comment"
+                            className="form-control"
+                            style={{ width: '40%' }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Style:</label>
+                        {styleOptions.map((style, index) => (
+                            <div key={index} className="form-check">
+                                <input
+                                    type="radio"
+                                    value={style}
+                                    className="form-check-input"
+                                    checked={newClimb.style === style}
+                                    onChange={handleStyleChange}
+                                />
+                                {style}
+                            </div>
+                        ))}
+                    </div>
+                    {/* Only show tries input if style is not "Flash" */}
+                    {newClimb.style !== "Flash" && (
+                        <div className="form-group">
+                            <label className="form-label">Tries:</label>
+                            <input
+                                type="number"
+                                onChange={handleInputChange}
+                                value={newClimb.tries}
+                                name="tries"
+                                className="form-control"
+                                style={{ width: '40%' }}
+                            />
+                        </div>
+                    )}
+                    <br/>
+                    <button type="submit" className="btn">
+                        Add Climb
+                    </button>
+                </form>
+          </div>
+        )}
+        </div>
 )
 }
 

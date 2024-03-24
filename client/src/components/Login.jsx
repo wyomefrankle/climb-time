@@ -34,27 +34,29 @@ function Login({ handleLogin }) {
   };
 
   return (
-    <div>
-      <h1>Welcome to the Login Page</h1>
-      <form>
+    <div className="App">
+      <h3 className='title'>Welcome back! Please login to your account.</h3>
+      <form className='form'>
         <div>
-          <label>Username:</label>
+          <label className="form-label">Username:</label>
           <input
             type="text"
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
-            className="form-style"
+            className="form-control"
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label className="form-label">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="form-style"
+            className="form-control"
+            aria-describedby="passwordHelpBlock"
           />
         </div>
+        <br/>
         <button type="button" onClick={handleLoginClick} className="btn">
           Login
         </button>
