@@ -39,7 +39,7 @@ function NewUser() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: "30rem"}}>
       <h1 className='title'>Create account</h1>
       <form className='form'>
         <div>
@@ -49,6 +49,7 @@ function NewUser() {
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
             className="form-control"
+            style={{ width: '40%' }}
           />
         </div>
         <div>
@@ -58,6 +59,7 @@ function NewUser() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="form-control"
+            style={{ width: '40%' }}
           />
         </div>
         <div>
@@ -67,6 +69,7 @@ function NewUser() {
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
             className="form-control"
+            style={{ width: '40%' }}
           />
         </div>
         <div>
@@ -76,6 +79,7 @@ function NewUser() {
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
             className="form-control"
+            style={{ width: '40%' }}
           />
         </div>
         <Modal

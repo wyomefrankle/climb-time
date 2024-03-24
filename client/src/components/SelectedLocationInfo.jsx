@@ -10,14 +10,13 @@ import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 
 // This component will receive props for the selected location data and the delete function.
-function SelectedLocationInfo({climbs, setClimbs}) {
+function SelectedLocationInfo({climbs, setClimbs, setNewClimbLocation}) {
   const { user_id } = useParams();
   const [uniqueLocations, setUniqueLocations] = useState([])
   const [selectedLocation, setSelectedLocation] = useState(null); 
   const [locations, setLocations] = useState([]); // State for storing location data
   const mapRef = useRef(null); // Reference to the MapContainer component
   const home_position = [52.38, 4.64]; // Default map center position
-  const [newClimbLocation, setNewClimbLocation] = useState(null); // State variable to hold the currently selected location
   const [searchControl, setSearchControl] = useState(null); // State variable to hold the search control instance
 
 
@@ -29,6 +28,8 @@ function SelectedLocationInfo({climbs, setClimbs}) {
 
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
+    console.log("Clicked location:", location); // Check if the correct location is logged
+
   };
   
   const deleteClimb = (id) => {

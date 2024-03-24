@@ -9,7 +9,8 @@ function LocationMarkers({ setNewClimbLocation }) {
 
     const map = useMapEvents({
       click(e) {
-        const { lat, lng } = e.latlng;
+        const lat = e.latlng.lat
+        const lng = e.latlng.lng
         setNewClimbLocation({ lat, lng }); // Pass the clicked location back to the parent component
     }
     });

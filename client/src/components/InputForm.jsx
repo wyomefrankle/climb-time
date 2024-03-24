@@ -23,6 +23,18 @@ function InputForm({ getClimbs, newClimbLocation }) {
       const styleOptions = ["Flash", "Redpoint", "Go"];
       const [showForm, setShowForm] = useState(false);
 
+      useEffect(() => {
+        if (newClimbLocation) {
+          // Update the newClimb state with the clicked location's latitude and longitude values
+          setNewClimb(prevState => ({
+            ...prevState,
+            lat: newClimbLocation.lat,
+            lng: newClimbLocation.lng
+          }));
+        }
+      }, [newClimbLocation]);
+
+
       const handleInputChange = (event) => {
         const { name, value } = event.target;
         setNewClimb((prevState) => ({ ...prevState, [name]: value }));
@@ -96,16 +108,6 @@ function InputForm({ getClimbs, newClimbLocation }) {
           });
       };
 
-      useEffect(() => {
-        if (newClimbLocation) {
-          // Update the newClimb state with the clicked location's latitude and longitude values
-          setNewClimb(prevState => ({
-            ...prevState,
-            lat: newClimbLocation.lat,
-            lng: newClimbLocation.lng
-          }));
-        }
-      }, [newClimbLocation]);
 
 
 return(
@@ -143,6 +145,8 @@ return(
           <div className="form-group">
               <label className="form-label">Latitude:</label>
               <input
+                  type="number"
+                  step="any"
                   onChange={e => handleInputChange(e)}
                   value={newClimb.lat}
                   name="lat"

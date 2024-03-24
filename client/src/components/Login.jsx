@@ -34,8 +34,9 @@ function Login({ handleLogin }) {
   };
 
   return (
-    <div className="App">
-      <h3 className='title'>Welcome back! Please login to your account.</h3>
+    <div className="App" style={{ width: "40rem"}}>
+      <h3 className='title' style={{ textAlign: "center"}}>Welcome back! </h3>
+      <h5 style={{ textAlign: "center"}}>Please login to your account.</h5>
       <form className='form'>
         <div>
           <label className="form-label">Username:</label>
@@ -44,6 +45,7 @@ function Login({ handleLogin }) {
             value={user_id}
             onChange={(e) => setUser_id(e.target.value)}
             className="form-control"
+            style={{ width: '40%' }}
           />
         </div>
         <div>
@@ -54,6 +56,7 @@ function Login({ handleLogin }) {
             onChange={(e) => setPassword(e.target.value)}
             className="form-control"
             aria-describedby="passwordHelpBlock"
+            style={{ width: '40%' }}
           />
         </div>
         <br/>
@@ -61,7 +64,7 @@ function Login({ handleLogin }) {
           Login
         </button>
       </form>
-      <h3>Don&apos;t have an account?</h3>
+      <h3 >Don&apos;t have an account?</h3>
       <Link to="/new-user">Create New Account</Link>
     </div>
   );
