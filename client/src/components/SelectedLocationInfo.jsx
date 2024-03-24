@@ -17,7 +17,8 @@ function SelectedLocationInfo({climbs, setClimbs, setNewClimbLocation}) {
   const [locations, setLocations] = useState([]); // State for storing location data
   const mapRef = useRef(null); // Reference to the MapContainer component
   const home_position = [52.38, 4.64]; // Default map center position
-  const [searchControl, setSearchControl] = useState(null); // State variable to hold the search control instance
+  // const [searchControl, setSearchControl] = useState(null); // State variable to hold the search control instance
+
 
 
   // Update uniqueLocations whenever climbs changes
@@ -28,8 +29,6 @@ function SelectedLocationInfo({climbs, setClimbs, setNewClimbLocation}) {
 
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
-    console.log("Clicked location:", location); // Check if the correct location is logged
-
   };
   
   const deleteClimb = (id) => {
@@ -54,24 +53,24 @@ function SelectedLocationInfo({climbs, setClimbs, setNewClimbLocation}) {
     });
   };    
 
-      // Add the search control to the map
-      useEffect(() => {
-        const map = mapRef.current;
-        if (!map) return;
+    //   // Add the search control to the map
+    //   useEffect(() => {
+    //     const map = mapRef.current;
+    //     if (!map) return;
 
-        const provider = new OpenStreetMapProvider();
-        const control = new GeoSearchControl({
-            provider: provider,
-        });
+    //     const provider = new OpenStreetMapProvider();
+    //     const control = new GeoSearchControl({
+    //         provider: provider,
+    //     });
 
-        control.addTo(map); // Add the control to the map
+    //     control.addTo(map); // Add the control to the map
 
-        setSearchControl(control); // Save control instance to state
+    //     setSearchControl(control); // Save control instance to state
 
-        return () => {
-            map.removeControl(control); // Remove control when component unmounts
-        };
-    }, [locations]);
+    //     return () => {
+    //         map.removeControl(control); // Remove control when component unmounts
+    //     };
+    // }, [setNewClimbLocation]);
   
 
         // Update locations when climbs state changes
@@ -133,13 +132,18 @@ function SelectedLocationInfo({climbs, setClimbs, setNewClimbLocation}) {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {/* Render markers for each location */}
-                {locations.length > 0 && locations.map((location, index) => (
-                  <Marker key={index} position={[location[0], location[1]]}>
-                    <Popup>
-                      This is {location[0]}
-                    </Popup>
-                  </Marker>
-                ))}
+                {locations.length > 0 && locations.map((location, index) => {
+                    const climbWithLocation = climbs.find(climb => parseFloat(climb.lat) === location[0] && parseFloat(climb.lng) === location[1]);
+                    const locationName = climbWithLocation ? climbWithLocation.location : ''; // Get location name
+
+                    return (
+                        <Marker key={index} position={[location[0], location[1]]}>
+                            <Popup>
+                                This is {locationName}
+                            </Popup>
+                        </Marker>
+                    );
+                })}
                 {/* LocationMarkers component */}
                 <LocationMarkers setNewClimbLocation={setNewClimbLocation} locations={locations} setLocations={setLocations}/>
               </MapContainer>
