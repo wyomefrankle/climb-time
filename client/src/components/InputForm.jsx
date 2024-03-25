@@ -125,8 +125,8 @@ return(
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5A/B">5A/5B</option>
-                  <option value="5B/C">5B/5C</option>
-                  <option value="6A/B">5B/5C</option>
+                  <option value="5B/C">5B/C</option>
+                  <option value="6A/B">6A/B</option>
                   <option value="7A">7A</option>
                   <option value="Comp">Comp</option>
               </select>
@@ -145,8 +145,6 @@ return(
           <div className="form-group">
               <label className="form-label">Latitude:</label>
               <input
-                  type="number"
-                  step="any"
                   onChange={e => handleInputChange(e)}
                   value={newClimb.lat}
                   name="lat"
@@ -171,7 +169,7 @@ return(
                   <option value="4">4</option>
                   <option value="5A/B">5A/5B</option>
                   <option value="5B/C">5B/5C</option>
-                  <option value="6A/B">5B/5C</option>
+                  <option value="6A/B">6A/B</option>
                   <option value="7A">7A</option>
                   <option value="Comp">Comp</option>
               </select>
