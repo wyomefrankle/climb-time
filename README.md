@@ -11,14 +11,7 @@ Run `npm install` in the project folder to install dependencies related to Expre
 `cd client` and run `npm install` install dependencies related to React (the client).
 
 ### Database Prep
-
-Type `mysql -u root -p` to access the MySQL CLI using your password.
-
-In the MySQL CLI, type `create database todos;` to create a database in MySQL.
-
-Run the following in the MySQL CLI: `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YOUR_PASSWORD';` (replace `YOUR_PASSWORD` with your actual password)
-
-Run `npm run migrate` in your **TERMINAL**, in the **project** folder (not your MySQL CLI! Open a new terminal window for this). This will create a table called 'climbs' and 'users' in your database.
+- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create a table called 'climbs' in your database.
 
 ### Run Your Development Servers
 
