@@ -11,7 +11,7 @@ Run `npm install` in the project folder to install dependencies related to Expre
 `cd client` and run `npm install` install dependencies related to React (the client).
 
 ### Database Prep
-- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create a table called 'climbs' in your database.
+- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create a table called 'climbs' and 'users' in the 'climbing_log' database.
 
 ### Run Your Development Servers
 
