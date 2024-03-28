@@ -13,9 +13,6 @@ Run `npm install` in the project folder to install dependencies related to Expre
 ### Database Prep
 - Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create a table called 'climbs' and 'users' in the 'climbing_log' database.
 
-### Getting started
-- Go to http://localhost:5173 and either create an account or log in as an existing user.
-
 ### Run Your Development Servers
 
 - Run `npm start` in project directory to start the Express server on port 4000
@@ -23,6 +20,9 @@ Run `npm install` in the project folder to install dependencies related to Expre
 - Client is configured so all API calls will be proxied to port 4000 for a smoother development experience. Yay!
 - You can test your client app in `http://localhost:5173`
 - You can test your API in `http://localhost:4000/api`
+
+### Getting started
+- Go to http://localhost:5173 and either create an account or log in as an existing user.
 
 ## About the app
 
