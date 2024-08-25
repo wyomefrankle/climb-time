@@ -1,4 +1,4 @@
-# Full Stack Climbing Log App
+# ClimbTime Climbing Log App
 
 In this repository, you will find all the steps and information required to build an app which is a climbing fitness tracker using React, Node/Express, and MySQL.
 
